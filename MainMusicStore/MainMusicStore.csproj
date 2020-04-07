@@ -10,6 +10,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.3" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.3" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.3" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.3" />
@@ -20,10 +21,6 @@
     <ProjectReference Include="..\MainMusicStore.DataAccess\MainMusicStore.DataAccess.csproj" />
     <ProjectReference Include="..\MainMusicStore.Models\MainMusicStore.Models.csproj" />
     <ProjectReference Include="..\MainMusicStore.Utility\MainMusicStore.Utility.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Admin\Controllers\" />
   </ItemGroup>
 
 </Project>
