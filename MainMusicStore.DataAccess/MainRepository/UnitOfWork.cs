@@ -1,8 +1,5 @@
 ﻿using MainMusicStore.Data;
 using MainMusicStore.DataAccess.IMainRepository;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MainMusicStore.DataAccess.MainRepository
 {

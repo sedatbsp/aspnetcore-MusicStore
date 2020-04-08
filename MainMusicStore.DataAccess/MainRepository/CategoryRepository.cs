@@ -1,10 +1,7 @@
 ﻿using MainMusicStore.Data;
 using MainMusicStore.DataAccess.IMainRepository;
 using MainMusicStore.Models.DbModels;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace MainMusicStore.DataAccess.MainRepository
 {

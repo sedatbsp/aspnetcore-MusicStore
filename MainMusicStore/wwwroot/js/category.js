@@ -13,7 +13,7 @@ function loadDataTable() {
         "columns": [
             { "data": "categoryName", "width": "60%" },
             {
-                "data": "Id",
+                "data": "id",
                 "render": function (data) {
                     return `
                             <div class="text-center">
@@ -29,4 +29,31 @@ function loadDataTable() {
             }
         ]
     });
+}
+
+
+function Delete(url) {
+    swal({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        buttons: true,
+        dangerMode:true
+    }).then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                type: "DELETE",
+                url: url,
+                success: function (data) {
+                    if (data.success) {
+                        toastr.success(data.message);
+                        dataTable.ajax.reload();
+                    } else {
+                        toastr.error(data.message);
+                    }
+                }
+            });
+        }
+    });
+
 }
