@@ -13,11 +13,12 @@ namespace MainMusicStore.DataAccess.MainRepository
             category = new CategoryRepository(_db);
             coverType = new CoverTypeRepository(_db);
             sp_call = new SPCallRepository(_db);
+            product = new ProductRepository(_db);
         }
 
         public ICategoryRepository category { get; private set; }
 
-
+        public IProductRepository product { get; private set; }
         public ISPCallRepository sp_call { get; private set; }
 
         public ICoverTypeRepository coverType { get; private set; }
