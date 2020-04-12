@@ -23,4 +23,8 @@
     <ProjectReference Include="..\MainMusicStore.Utility\MainMusicStore.Utility.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\products\" />
+  </ItemGroup>
+
 </Project>

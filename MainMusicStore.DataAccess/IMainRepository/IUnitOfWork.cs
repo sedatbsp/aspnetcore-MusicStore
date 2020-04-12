@@ -4,10 +4,10 @@ namespace MainMusicStore.DataAccess.IMainRepository
 {
     public interface IUnitOfWork :IDisposable
     {
-        ICategoryRepository category { get; }
-        IProductRepository product { get; }
-        ICoverTypeRepository coverType { get; }
-        ISPCallRepository sp_call { get; }
+        ICategoryRepository Category { get; }
+        IProductRepository Product { get; }
+        ICoverTypeRepository CoverType { get; }
+        ISPCallRepository Sp_call { get; }
         void Save();
 
     }

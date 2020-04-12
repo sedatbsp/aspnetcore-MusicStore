@@ -10,18 +10,16 @@ namespace MainMusicStore.DataAccess.MainRepository
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
-            category = new CategoryRepository(_db);
-            coverType = new CoverTypeRepository(_db);
-            sp_call = new SPCallRepository(_db);
-            product = new ProductRepository(_db);
+            Category = new CategoryRepository(_db);
+            CoverType = new CoverTypeRepository(_db);
+            Product = new ProductRepository(_db);
+            Sp_call = new SPCallRepository(_db);
         }
 
-        public ICategoryRepository category { get; private set; }
-
-        public IProductRepository product { get; private set; }
-        public ISPCallRepository sp_call { get; private set; }
-
-        public ICoverTypeRepository coverType { get; private set; }
+        public ICategoryRepository Category { get; private set; }
+        public ICoverTypeRepository CoverType { get; private set; }
+        public IProductRepository Product { get; private set; }
+        public ISPCallRepository Sp_call { get; private set; }
 
         public void Dispose()
         {

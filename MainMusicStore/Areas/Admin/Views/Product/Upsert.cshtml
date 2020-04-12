@@ -1,0 +1,254 @@
+﻿@model MainMusicStore.Models.ViewModels.ProductVM
+@{
+    ViewData["Title"] = "Upsert";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var title = "Create Product";
+}
+
+<form method="post" enctype="multipart/form-data">
+    
+    <div class="row p-3 border">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @if (Model.Product.Id != 0)
+        {
+            title = "Edit Product";
+            <input type="hidden" asp-for="Product.Id" />
+        }
+        <div class="col-12 border-bottom">
+            <h2 class="text-warning">@title</h2>
+        </div>
+        <div class="col-8 pt-4">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Product.Title"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Product.Title" class="form-control" />
+                    <span asp-validation-for="Product.Title" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Product.ISBN"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Product.ISBN" class="form-control" />
+                    <span asp-validation-for="Product.ISBN" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Product.Author"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Product.Author" class="form-control" />
+                    <span asp-validation-for="Product.Author" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Product.Description"></label>
+                </div>
+                <div class="col-12 mr-4">
+                    @*<input asp-for="Product.Description" class="form-control" />
+                        <span asp-validation-for="Product.Description" class="text-danger"></span>*@
+                    <textarea asp-for="Product.Description" class="form-control">
+                    
+                    </textarea>
+
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Product.ListPrice"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Product.ListPrice" class="form-control" />
+                    <span asp-validation-for="Product.ListPrice" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Product.Price"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Product.Price" class="form-control" />
+                    <span asp-validation-for="Product.Price" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Product.Price50"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Product.Price50" class="form-control" />
+                    <span asp-validation-for="Product.Price50" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Product.Price100"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Product.Price100" class="form-control" />
+                    <span asp-validation-for="Product.Price100" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    @*<label asp-for="Product.Title"></label>*@
+                    Category
+                </div>
+                <div class="col-8">
+                    @*<input asp-for="Product.Title" class="form-control" />*@
+                    @Html.DropDownListFor(m => m.Product.CategoryId, Model.CategoryList, "-Select a Category", new { @class = "form-control" })
+                    <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    Cover Type
+                </div>
+                <div class="col-8">
+                    @Html.DropDownListFor(m => m.Product.CoverTypeId, Model.CoverTypeList, "-Select a Cover Type", new { @class = "form-control" })
+                    <span asp-validation-for="Product.CoverTypeId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    Product Image
+                </div>
+                <div class="col-8">
+                    <input type="file" asp-for="Product.ImageUrl" id="uploadBox" multiple class="form-control" />
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <div class="col-8 offset-4">
+                    @if (Model.Product.Id != 0)
+                    {
+                        <partial name="_EditAndBackToListButton" model="Model.Product.Id" />
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="col">
+                                <button type="submit" onclick="return validateInput()" class="btn btn-primary form-control">Create</button>
+                            </div>
+                            <div class="col">
+                                <a asp-action="Index" class="btn btn-success form-control">Back to List</a>
+                            </div>
+                        </div>
+
+
+                        @*<partial name="_CreateAndBackToListButton" />*@
+                    }
+                </div>
+            </div>
+        </div>
+        @if (Model.Product.Id != 0)
+        {
+            <div class="col-3 offset-1 pt-4">
+                <img src="@Model.Product.ImageUrl" style="border-radius:12px;width:100%" />
+            </div>
+        }
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+
+    <script src="https://cdn.tiny.cloud/1/c0aloc02b7jdpqvxna2jqutm8h9qy2ilsd8wafmiqfaapgjf/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+            imagetools_cors_hosts: ['picsum.photos'],
+            menubar: 'file edit view insert format tools table help',
+            toolbar: 'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | ltr rtl',
+            toolbar_sticky: true,
+            autosave_ask_before_unload: true,
+            autosave_interval: "30s",
+            autosave_prefix: "{path}{query}-{id}-",
+            autosave_restore_when_empty: false,
+            autosave_retention: "2m",
+            image_advtab: true,
+            content_css: '//www.tiny.cloud/css/codepen.min.css',
+            link_list: [
+                { title: 'My page 1', value: 'http://www.tinymce.com' },
+                { title: 'My page 2', value: 'http://www.moxiecode.com' }
+            ],
+            image_list: [
+                { title: 'My page 1', value: 'http://www.tinymce.com' },
+                { title: 'My page 2', value: 'http://www.moxiecode.com' }
+            ],
+            image_class_list: [
+                { title: 'None', value: '' },
+                { title: 'Info', value: 'class-name' }
+            ],
+            importcss_append: true,
+            height: 400,
+            file_picker_callback: function (callback, value, meta) {
+                /* Provide file and text for the link dialog */
+                if (meta.filetype === 'file') {
+                    callback('https://www.google.com/logos/google.jpg', { text: 'My text' });
+                }
+
+                /* Provide image and alt text for the image dialog */
+                if (meta.filetype === 'image') {
+                    callback('https://www.google.com/logos/google.jpg', { alt: 'My alt text' });
+                }
+
+                /* Provide alternative source and posted for the media dialog */
+                if (meta.filetype === 'media') {
+                    callback('movie.mp4', { source2: 'alt.ogg', poster: 'https://www.google.com/logos/google.jpg' });
+                }
+            },
+            templates: [
+                { title: 'New Table', description: 'creates a new table', content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>' },
+                { title: 'Starting my story', description: 'A cure for writers block', content: 'Once upon a time...' },
+                { title: 'New list with dates', description: 'New List with dates', content: '<div class="mceTmpl"><span class="cdate">cdate</span><br /><span class="mdate">mdate</span><h2>My List</h2><ul><li></li><li></li></ul></div>' }
+            ],
+            template_cdate_format: '[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]',
+            template_mdate_format: '[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]',
+            height: 450,
+            image_caption: true,
+            quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+            noneditable_noneditable_class: "mceNonEditable",
+            toolbar_mode: 'sliding',
+            contextmenu: "link image imagetools table",
+
+            //plugins: 'lists',
+            //menubar:'file edit format'
+
+        });
+
+        function validateInput() {
+            if (document.getElementById('uploadBox').value == '') {
+                swal("Error", "Please select an image", "error");
+                return false;
+            }
+
+
+        }
+
+        
+
+        
+
+    </script>
+    <script src=" https://cdn.datatables.net/buttons/1.1.0/js/dataTables.buttons.min.js "></script>
+}

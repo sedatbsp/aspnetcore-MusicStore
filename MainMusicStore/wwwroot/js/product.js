@@ -7,15 +7,16 @@ $(document).ready(function () {
 
 function loadDataTable() {
     dataTable = $('#tblData').DataTable({
+        
         "ajax": {
             "url": "/Admin/Product/GetAll"
-        },
+        }, 
         "columns": [
-            { "data": "title", "width": "15%" },
-            { "data": "isbn", "width": "15%" },
-            { "data": "price", "width": "15%" },
-            { "data": "author", "width": "15%" },
-            { "data": "category.categoryName", "width": "15%" },
+            { "data": "title", "width": "25%" },
+            { "data": "author", "width": "20%" },
+            { "data": "isbn", "width": "20%" },
+            { "data": "price", "width": "10%" },
+            //{ "data": "category.categoryName", "width": "15%" },
             {
                 "data": "id",
                 "render": function (data) {
@@ -29,10 +30,11 @@ function loadDataTable() {
                                 </a>
                             </div>
                            `;
-                }, "width": "15%"
+                }, "width": "10%"
             }
         ]
     });
+
 }
 
 

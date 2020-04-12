@@ -31,7 +31,7 @@ namespace MainMusicStore.Areas.Admin.Controllers
         public IActionResult GetAll()
         {
             //var allObj = _uow.coverType.GetAll();
-            var allCoverTypes = _uow.sp_call.List<CoverType>(ProjectConstant.Proc_CoverType_GetAll,null);
+            var allCoverTypes = _uow.Sp_call.List<CoverType>(ProjectConstant.Proc_CoverType_GetAll,null);
             return Json(new { data = allCoverTypes });
 
         }
@@ -51,13 +51,13 @@ namespace MainMusicStore.Areas.Admin.Controllers
             var parameter = new DynamicParameters();
             parameter.Add("@Id", id);
 
-            var deleteData = _uow.sp_call.OneRecord<CoverType>(ProjectConstant.Proc_CoverType_Get,parameter);
+            var deleteData = _uow.Sp_call.OneRecord<CoverType>(ProjectConstant.Proc_CoverType_Get,parameter);
             if (deleteData == null)
             {
                 return Json(new { success = false, message = "Data not found !" });
             }
 
-            _uow.sp_call.Execute(ProjectConstant.Proc_CoverType_Delete,parameter);
+            _uow.Sp_call.Execute(ProjectConstant.Proc_CoverType_Delete,parameter);
             _uow.Save();
             return Json(new { success = true, message = "Delete operation successfully" });
 
@@ -82,7 +82,7 @@ namespace MainMusicStore.Areas.Admin.Controllers
 
             var parameter = new DynamicParameters();
             parameter.Add("@Id",id);
-            coverType = _uow.sp_call.OneRecord<CoverType>(ProjectConstant.Proc_CoverType_Get,parameter);
+            coverType = _uow.Sp_call.OneRecord<CoverType>(ProjectConstant.Proc_CoverType_Get,parameter);
 
             //ct = _uow.coverType.Get((int)id);
             if (coverType != null)
@@ -109,7 +109,7 @@ namespace MainMusicStore.Areas.Admin.Controllers
                 {
                     // create
                     //_uow.coverType.Add(CoverType);
-                    _uow.sp_call.Execute(ProjectConstant.Proc_CoverType_Create, parameter);
+                    _uow.Sp_call.Execute(ProjectConstant.Proc_CoverType_Create, parameter);
 
                 }
                 else
@@ -117,7 +117,7 @@ namespace MainMusicStore.Areas.Admin.Controllers
                     // update
                     parameter.Add("@Id", CoverType.Id);
                     //_uow.coverType.Update(CoverType);
-                    _uow.sp_call.Execute(ProjectConstant.Proc_CoverType_Update, parameter);
+                    _uow.Sp_call.Execute(ProjectConstant.Proc_CoverType_Update, parameter);
                 }
                 _uow.Save();
                 return RedirectToAction("Index");
