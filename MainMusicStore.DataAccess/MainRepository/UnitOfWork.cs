@@ -14,12 +14,16 @@ namespace MainMusicStore.DataAccess.MainRepository
             CoverType = new CoverTypeRepository(_db);
             Product = new ProductRepository(_db);
             Sp_call = new SPCallRepository(_db);
+            Company = new CompanyRepository(_db);
+            ApplicationUser = new ApplicationUserRepository(_db);
         }
 
         public ICategoryRepository Category { get; private set; }
         public ICoverTypeRepository CoverType { get; private set; }
         public IProductRepository Product { get; private set; }
         public ISPCallRepository Sp_call { get; private set; }
+        public ICompanyRepository Company { get; private set; }
+        public IApplicationUserRepository ApplicationUser { get; private set; }
 
         public void Dispose()
         {
