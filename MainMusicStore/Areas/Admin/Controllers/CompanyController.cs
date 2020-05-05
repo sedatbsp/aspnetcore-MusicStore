@@ -1,10 +1,14 @@
 ﻿using MainMusicStore.DataAccess.IMainRepository;
 using MainMusicStore.Models.DbModels;
+using MainMusicStore.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MainMusicStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = ProjectConstant.Role_Admin)]
+    //[Authorize(Roles = ProjectConstant.Role_Admin + ","+ProjectConstant.Role_Employee)] // birden fazla.
     public class CompanyController : Controller
     {
         #region Variables

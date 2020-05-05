@@ -46,6 +46,25 @@ namespace MainMusicStore
 
             services.AddMvc();
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = $"/Identity/Account/Login";
+                options.LogoutPath = $"/Identity/Account/Logout";
+                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+            });
+
+            services.AddAuthentication().AddFacebook(options =>
+            {
+                options.AppId = "3465825333450392";
+                options.AppSecret = "4ea92b8e20b85b137f2fb21772d3c972";
+
+            });
+
+            services.AddAuthentication().AddGoogle(options =>
+            {
+                options.ClientId = "77476899296-flh1el9ombnps7dmcbhr4no5m32j0s7r.apps.googleusercontent.com";
+                options.ClientSecret = "ZMcwgkhW79t6D5Wi3Tlt6T63";
+            });
 
         }
 

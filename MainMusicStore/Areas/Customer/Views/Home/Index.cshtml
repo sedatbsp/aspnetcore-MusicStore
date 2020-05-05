@@ -1,34 +1,42 @@
 ﻿@model IEnumerable<MainMusicStore.Models.DbModels.Product>
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Ana sayfa";
 }
+    <div class="container">
+        <div class="row">
+            @foreach (var product in Model)
+            {
 
+                <div class="row  pb-3 backgroundWhite">
+                    <div class="col-lg-8 ">
+                        <div class="row p-2">
+                            <div class="col-lg-12 p-0" style="border:1px solid #d4d4d4; border-radius: 5px;">
+                                <div class="card" style="border:0px;">
+                                    <img src="@product.ImageUrl" class="card-img-top rounded" />
+                                    <div class="pl-1">
+                                        <p class="card-title h5"><b style="color:#2c3e50">@product.Title</b></p>
+                                        <p class="card-title text-primary">satıcı: <b>@product.Author</b></p>
+                                    </div>
+                                    <div style="padding-left:5px;color:gray;">
+                                        <p>Fiyat: <strike><b class="">@product.ListPrice.ToString("0.00") TL</b></strike></p>
 
-@foreach (var product in Model)
-{
-    <div class="row pb-3 backgroundWhite">
-        <div class="col-lg-3 col-md-6">
-            <div class="row p-2">
-                <div class="col-12  p-1" style="border:1px solid #008cba; border-radius: 5px;">
-                    <div class="card" style="border:0px;">
-                        <img src="@product.ImageUrl" class="card-img-top rounded" />
-                        <div class="pl-1">
-                            <p class="card-title h5"><b style="color:#2c3e50">@product.Title</b></p>
-                            <p class="card-title text-primary">by <b>@product.Author</b></p>
+                                    </div>
+                                    <div style="padding-left:5px;font-size:18px;">
+                                        <p style="padding-left:5px;font-size:18px;">İndirimli Fiyat: <b class="">@product.Price.ToString("0.00") TL</b></p>
+                                    </div>
+                                    <div style="padding-left:5px;font-size:13px;">
+                                        <b style="color:maroon"> 50 adet: <b class="">@product.Price50.ToString("0.00") TL</b></b><br />
+                                        <b style="color:maroon">100 adet: <b class="">@product.Price100.ToString("0.00") TL</b></b><hr />
+                                    </div>
+                                </div>
+                                <div>
+                                    <a asp-action="Details" class="btn btn-success form-control" asp-route-id="@product.Id">Detaylar</a>
+                                </div>
+                            </div>
                         </div>
-                        <div style="padding-left:5px;">
-                            <p>List Price: <strike><b class="">@product.ListPrice.ToString("0.00")</b></strike></p>
-                        </div>
-                        <div style="padding-left:5px;">
-                            <p style="color:maroon">As low as: <b class="">@product.Price100.ToString("0.00")</b></p>
-                        </div>
-                    </div>
-                    <div>
-                        <a asp-action="Details" class="btn btn-success form-control" asp-route-id="@product.Id">Details</a>
                     </div>
                 </div>
-            </div>
+
+            }
         </div>
     </div>
-
-}
