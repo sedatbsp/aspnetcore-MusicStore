@@ -49,7 +49,7 @@ namespace MainMusicStore.Areas.Identity.Pages.Account
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                 EmailConfirmationUrl = Url.Page(
-                    "/Account/ConfirmEmail",
+                    "/Account/ConfirmEmail",    
                     pageHandler: null,
                     values: new { area = "Identity", userId = userId, code = code },
                     protocol: Request.Scheme);
