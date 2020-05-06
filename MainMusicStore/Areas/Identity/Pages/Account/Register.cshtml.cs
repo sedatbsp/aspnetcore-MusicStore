@@ -120,7 +120,6 @@ namespace MainMusicStore.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                // var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
                 var user = new ApplicationUser 
                 {
                     UserName = Input.Email,
@@ -138,11 +137,11 @@ namespace MainMusicStore.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    /*
+                    
                     await _emailSender.SendEmailAsync(user.Email, "New Login", "<h1>Hey! New login to your account noticed</h1><p>New login to your account at" + DateTime.Now + " </p>");
-                    */
+                    
                     _logger.LogInformation("User created a new account with password.");
-
+                    /*
                     if(!await _roleManager.RoleExistsAsync(ProjectConstant.Role_Admin))
                     {
                         await _roleManager.CreateAsync(new IdentityRole(ProjectConstant.Role_Admin));
@@ -159,7 +158,7 @@ namespace MainMusicStore.Areas.Identity.Pages.Account
                     {
                         await _roleManager.CreateAsync(new IdentityRole(ProjectConstant.Role_User_Indi));
                     }
-
+                    */
                     //await _userManager.AddToRoleAsync(user, ProjectConstant.Role_Admin);
 
                     if(user.Role == null)
