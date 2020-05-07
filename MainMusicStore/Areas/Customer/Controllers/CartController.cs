@@ -137,5 +137,37 @@ namespace MainMusicStore.Areas.Customer.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult Summary()
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claims = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            ShoppingCartVM = new ShoppingCartVM()
+            {
+                OrderHeader = new OrderHeader(),
+                ListCart = _uow.ShoppingCart.GetAll(u => u.ApplicationUserId == claims.Value, includeProperties: "Product")
+
+            };
+
+            ShoppingCartVM.OrderHeader.ApplicationUser =  _uow.ApplicationUser.GetFirstOrDefault(u => u.Id == claims.Value, includeProperties: "Company");
+
+            foreach (var item in ShoppingCartVM.ListCart)
+            {
+                item.Price = ProjectConstant.GetPriceBaseOnQuantity(item.Count, item.Product.Price, item.Product.Price50,
+                    item.Product.Price100);
+                ShoppingCartVM.OrderHeader.OrderTotal += (item.Price * item.Count);
+            }
+            ShoppingCartVM.OrderHeader.Name = ShoppingCartVM.OrderHeader.ApplicationUser.Name;
+            ShoppingCartVM.OrderHeader.PhoneNumber = ShoppingCartVM.OrderHeader.ApplicationUser.PhoneNumber;
+            ShoppingCartVM.OrderHeader.StreetAddress = ShoppingCartVM.OrderHeader.ApplicationUser.StreetAddress;
+            ShoppingCartVM.OrderHeader.City = ShoppingCartVM.OrderHeader.ApplicationUser.City;
+            ShoppingCartVM.OrderHeader.State = ShoppingCartVM.OrderHeader.ApplicationUser.State;
+            ShoppingCartVM.OrderHeader.PostCode = ShoppingCartVM.OrderHeader.ApplicationUser.PostCode;
+
+            return View(ShoppingCartVM);
+
+
+        }
+
     }
 }
