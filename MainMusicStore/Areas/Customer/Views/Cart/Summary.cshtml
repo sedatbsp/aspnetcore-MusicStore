@@ -1,6 +1,6 @@
 ﻿@model MainMusicStore.Models.ViewModels.ShoppingCartVM
 @{
-    ViewData["Title"] = "Summary";
+    ViewData["Title"] = "Sipariş özeti";
 }
 
 
@@ -12,10 +12,10 @@
                 <div class="card-header bg-dark text-light ml-0 row container">
                     <div class="col-6">
                         <i class="fa fa-shopping-cart"></i> &nbsp;
-                        Order Summary
+                        Sipariş özeti
                     </div>
                     <div class="col-6 text-right">
-                        <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="btn btn-outline-info btn-sm">Back to Cart</a>
+                        <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="btn btn-outline-info btn-sm">Sepete geri dön</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -24,12 +24,12 @@
                             <div class="col-12 col-lg-6 pb-4">
                                 <div class="row">
                                     <h4 class="d-flex justify-content-between align-items-center mb-3">
-                                        <span class="text-info">PickUp Details:</span>
+                                        <span class="text-info">Alıcı bilgileri:</span>
                                     </h4>
                                 </div>
                                 <div class="row my-1">
                                     <div class="col-3">
-                                        <label>Name</label>
+                                        <label>İsim</label>
                                     </div>
                                     <div class="col-9">
                                         <input asp-for="OrderHeader.Name" type="text" class="form-control" />
@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="row my-1">
                                     <div class="col-3">
-                                        <label>Phone</label>
+                                        <label>Telefon</label>
                                     </div>
                                     <div class="col-9">
                                         <input asp-for="OrderHeader.PhoneNumber" type="text" class="form-control" />
@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="row my-1">
                                     <div class="col-3">
-                                        <label>Street Address</label>
+                                        <label>Adres</label>
                                     </div>
                                     <div class="col-9">
                                         <input asp-for="OrderHeader.StreetAddress" type="text" class="form-control" />
@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="row my-1">
                                     <div class="col-3">
-                                        <label>City</label>
+                                        <label>Şehir</label>
                                     </div>
                                     <div class="col-9">
                                         <input asp-for="OrderHeader.City" type="text" class="form-control" />
@@ -61,7 +61,7 @@
                                 </div>
                                 <div class="row my-1">
                                     <div class="col-3">
-                                        <label>State</label>
+                                        <label>Ülke</label>
                                     </div>
                                     <div class="col-9">
                                         <input asp-for="OrderHeader.State" type="text" class="form-control" />
@@ -69,7 +69,7 @@
                                 </div>
                                 <div class="row my-1">
                                     <div class="col-3">
-                                        <label>Postal Code</label>
+                                        <label>Posta kodu</label>
                                     </div>
                                     <div class="col-9">
                                         <input asp-for="OrderHeader.PostCode" type="text" class="form-control" />
@@ -78,7 +78,7 @@
                             </div>
                             <div class="col-12 col-lg-5 offset-lg-1">
                                 <h4 class="d-flex justify-content-between align-items-center mb-3">
-                                    <span class="text-info">Order Summary:</span>
+                                    <span class="text-info">Sipariş özeti:</span>
                                 </h4>
                                 <ul class="list-group mb-3">
                                     @{ var total = 0.0;}
@@ -87,14 +87,14 @@
                                         <li class="list-group-item d-flex justify-content-between">
                                             <div>
                                                 <h6 class="my-0">@item.Product.Title</h6>
-                                                <small class="text-muted">Quantity: @item.Count</small>
+                                                <small class="text-muted">Adet: @item.Count</small>
                                             </div>
                                             <span class="text-muted">@((item.Price * item.Count).ToString("0.00")) TL</span>
                                         </li>
                                     }
 
                                     <li class="list-group-item d-flex justify-content-between bg-light">
-                                        <b class="text-info ">TOTAL</b>
+                                        <b class="text-info ">TOPLAM</b>
                                         <strong class="text-primary font-weight-bold">@Model.OrderHeader.OrderTotal.ToString("0.00") TL</strong>
                                     </li>
                                 </ul>
@@ -105,11 +105,11 @@
                 <div class="card-footer">
                     <div class="row">
                         <div class="col-12 col-md-8 pt-2">
-                            <p style="color:maroon; font-size:14px;">Estimate Arrival Date: @DateTime.Now.AddDays(7).ToShortDateString() - @DateTime.Now.AddDays(14).ToShortDateString()</p>
+                            <p style="color:maroon; font-size:14px;">Tahmini Teslim Tarihi: @DateTime.Now.AddDays(7).ToShortDateString(). - @DateTime.Now.AddDays(14).ToShortDateString()</p>
                         </div>
                         <div class="col-12 col-md-4">
 
-                            <button type="submit" value="Place Order" class="btn btn-success form-control">Place Order</button>
+                            <button type="submit" value="Place Order" class="btn btn-success form-control">Siparişi ver</button>
                         </div>
                     </div>
                 </div>

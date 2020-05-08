@@ -1,42 +1,192 @@
 ﻿@model IEnumerable<MainMusicStore.Models.DbModels.Product>
 @{
     ViewData["Title"] = "Ana sayfa";
+    int temp = 0;
 }
-    <div class="container">
-        <div class="row">
-            @foreach (var product in Model)
-            {
 
-                <div class="row  pb-3 backgroundWhite">
-                    <div class="col-lg-8 ">
-                        <div class="row p-2">
-                            <div class="col-lg-12 p-0" style="border:1px solid #d4d4d4; border-radius: 5px;">
-                                <div class="card" style="border:0px;">
-                                    <img src="@product.ImageUrl" class="card-img-top rounded" />
-                                    <div class="pl-1">
-                                        <p class="card-title h5"><b style="color:#2c3e50">@product.Title</b></p>
-                                        <p class="card-title text-primary">satıcı: <b>@product.Author</b></p>
-                                    </div>
-                                    <div style="padding-left:5px;color:gray;">
-                                        <p>Fiyat: <strike><b class="">@product.ListPrice.ToString("0.00") TL</b></strike></p>
+<style>
+    body {
+        font-size: 0.98rem;
+    }
+</style>
 
-                                    </div>
-                                    <div style="padding-left:5px;font-size:18px;">
-                                        <p style="padding-left:5px;font-size:18px;">İndirimli Fiyat: <b class="">@product.Price.ToString("0.00") TL</b></p>
-                                    </div>
-                                    <div style="padding-left:5px;font-size:13px;">
-                                        <b style="color:maroon"> 50 adet: <b class="">@product.Price50.ToString("0.00") TL</b></b><br />
-                                        <b style="color:maroon">100 adet: <b class="">@product.Price100.ToString("0.00") TL</b></b><hr />
-                                    </div>
-                                </div>
-                                <div>
-                                    <a asp-action="Details" class="btn btn-success form-control" asp-route-id="@product.Id">Detaylar</a>
-                                </div>
+<div class="container pt-5">
+    <div class="row align-items-center justify-content-between">
+
+        <div class="col-lg-2 col-md-3 col-sm-4 col-7">
+            <div class="input-group input-group-sm">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"> </span>
+                </div>
+                <select name="" class="form-control form-control-sm">
+                    <option value="">12</option>
+                    <option value="">24</option>
+                    <option value="">48</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-5 text-right order-md-1">
+            <a href="#" class="btn btn-primary grid-view btn-sm">
+                <i class="fa fa-th-large"></i>
+            </a>
+            <a href="#" class="btn btn-primary list-view btn-sm">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+
+        <div class="col-md-3 order-md-0 mt-2 mt-md-0">
+            <select class="form-control form-control-sm">
+                <option value="">Sırala</option>
+                <option value="">Satışa Göre</option>
+                <option value="">Fiyata Göre</option>
+            </select>
+        </div>
+
+    </div>
+</div>
+
+<div class="container">
+    <hr />
+</div>
+
+<div class="container">
+    <div class="row">
+
+        @foreach (var product in Model)
+        {
+            
+                temp++;
+                ViewBag.prCount = temp;
+            
+            <div class="col-md-4 mb-3">
+                <div class="card h-100">
+                    <div class="d-flex justify-content-between position-absolute w-100">
+                        <div class="label-new">
+                            <span class="text-white bg-success small d-flex align-items-center px-2 py-1">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <span class="ml-1">Yeni</span>
+                            </span>
+                        </div>
+                        <div class="label-sale">
+                            <span class="text-white bg-primary small d-flex align-items-center px-2 py-1">
+                                <i class="fa fa-tag" aria-hidden="true"></i>
+                                <span class="ml-1">İndirimli</span>
+                            </span>
+                        </div>
+                    </div>
+                    <a  asp-action="Details" asp-route-id="@product.Id" >
+                        <img src="@product.ImageUrl" class="card-img-top" alt="Product">
+                    </a>
+                    <div class="card-body px-2 pb-2 pt-1">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p class="h4 text-primary">@product.Price.ToString("0.00") TL </p>
+                                <b class="h6 text-warning">İndirim % @(((1.00 - (product.Price / product.ListPrice)) * 100).ToString("0.0")) </b>
+                            </div>
+                            <div>
+                                <a href="#" class="text-secondary lead" data-toggle="tooltip" data-placement="left" title="Compare">
+                                    <i class="fa fa-line-chart" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <p class="mb-0">
+                            <strong>
+                                <a asp-action="Details" asp-route-id="@product.Id" class="text-secondary">@product.Title</a>
+                            </strong>
+                        </p>
+                        <p class="mb-1">
+                            <small>
+                                <a href="#" class="text-secondary">@product.ISBN</a>
+                            </small>
+                        </p>
+                        <div class="d-flex mb-3 justify-content-between">
+                            <div>
+                                <p class="mb-0 small"><b>Satıcı: </b> @product.Author</p>
+                                <p class="mb-0 small"><b>Kategori: </b> @product.Category.CategoryName</p>
+                                <p class="mb-0 small"><b>Cover: </b> @product.CoverType.Name</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="mb-0 small"><b>Ücretsiz Kargo</b></p>
+                                <!--
+                                <p class="mb-0 small"><b>50 adet alım: </b> @product.Price50.ToString("0.00") TL</p>
+                                <p class="mb-0 small"><b>100 adet alım: </b> @product.Price100.ToString("0.00") TL</p>
+                                -->
+                                <p class="mb-0 small text-primary">
+                                    <span class="font-weight-bold">Fiyat</span>
+                                    <strike>  @product.ListPrice.ToString("0.00") TL</strike><br />
+                                    İndirim % @(((1.00 - (product.Price / product.ListPrice)) * 100).ToString("0.00"))
+
+                                </p>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div class="col px-0">
+                                <a asp-action="Details" asp-route-id="@product.Id" class="btn btn-outline-primary btn-block">
+                                    Detaylar
+                                    <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <div class="ml-2">
+                                <a class="btn btn-outline-success" data-toggle="tooltip" data-placement="left" title="Add to Wishlist">
+                                    <i class="fa fa-heart" aria-hidden="true"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        }
 
-            }
-        </div>
+
+
     </div>
+</div>
+
+
+<div class="container">
+    <hr />
+</div>
+
+<div class="container pb-5">
+    <div class="row align-items-center justify-content-between">
+
+        <div class="col-lg-2 col-md-3 col-sm-4 col-7">
+            <div class="input-group input-group-sm">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"> @ViewBag.prCount Ürün</span>
+                </div>
+                <select name="" class="form-control form-control-sm">
+                    <option value="">12</option>
+                    <option value="">24</option>
+                    <option value="">48</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-5 text-right">
+            <a href="#" class="btn btn-primary grid-view btn-sm">
+                <i class="fa fa-th-large"></i>
+            </a>
+            <a href="#" class="btn btn-primary list-view btn-sm">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(function () {
+
+        $('[data-toggle=tooltip]').tooltip();
+
+        $('.grid-view').click(function () {
+
+        });
+
+    });
+</script>
+
+
+

@@ -1,6 +1,6 @@
 ﻿@model MainMusicStore.Models.ViewModels.ShoppingCartVM
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Sepetim";
 }
 
 
@@ -15,10 +15,10 @@
                     <div class="card-header bg-dark text-light ml-0 row container">
                         <div class="col-6">
                             <i class="fa fa-shopping-cart"></i> &nbsp;
-                            Shopping Cart
+                            Sepetim
                         </div>
                         <div class="col-6 text-right">
-                            <a class="btn btn-outline-primary btn-sm">Continue Shopping</a>
+                            <a class="btn btn-outline-primary btn-sm">Alışverişe devam et</a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -59,7 +59,7 @@
                             <div class="col-12 col-md-6 offset-md-6 col-lg-4 offset-lg-8 pr-4">
                                 <ul class="list-group">
                                     <li class="list-group-item d-flex justify-content-between bg-light">
-                                        <span class="text-dark"> Total </span>
+                                        <span class="text-dark"> Toplam </span>
                                         <strong class="text-dark font-weight-bold ">₺ <span id="txtOrderTotal">@Model.OrderHeader.OrderTotal.ToString("0.00") TL</span></strong>
                                     </li>
                                 </ul>
@@ -79,7 +79,7 @@
                             {
                                 <div class="col-sm-12 col-lg-4 col-md-6 offset-lg-8 offset-md-6 ">
 
-                                    <a asp-area="Customer" asp-controller="Cart" asp-action="Summary" class="btn btn-success text-white form-control">Summary</a>
+                                    <a asp-area="Customer" asp-controller="Cart" asp-action="Summary" class="btn btn-success text-white form-control">Sepet bilgisi</a>
                                 </div>
                             }
 
