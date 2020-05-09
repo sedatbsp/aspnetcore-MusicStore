@@ -26,6 +26,17 @@ namespace MainMusicStore.Utility
         public const string shoppingCart = "ShoppingCart";
 
 
+        // ----------------- Status //
+        public const string PaymentStatusPending = "Pending";
+        // ----------------- Status //
+
+
+        // ----------------- Order Status //
+        public const string StatusPending = "Pending";
+        // ----------------- Order Status //
+
+
+
         public static double GetPriceBaseOnQuantity(int quantity, double price, double price50, double price100)
         {
             if(quantity < 50)

@@ -1,4 +1,7 @@
 ﻿@model MainMusicStore.Models.ViewModels.ShoppingCartVM
+@using Microsoft.Extensions.Options
+
+@inject IOptions<MainMusicStore.Utility.StripeSettings> Stripe
 @{
     ViewData["Title"] = "Sipariş özeti";
 }
@@ -108,7 +111,20 @@
                             <p style="color:maroon; font-size:14px;">Tahmini Teslim Tarihi: @DateTime.Now.AddDays(7).ToShortDateString(). - @DateTime.Now.AddDays(14).ToShortDateString()</p>
                         </div>
                         <div class="col-12 col-md-4">
-
+                            @* @{ var orderTotalForStripe = Model.OrderHeader.OrderTotal * 100; }
+                            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" 
+                                    data-key="@Stripe.Value.PublishableKey"
+                                    data-amount="@orderTotalForStripe" 
+                                    data-name="Müzik Mağazası" 
+                                    data-label="Siparişi ver" 
+                                    data-description="Kart bilgilerinizi giriniz."
+                                    data-locale="auto"
+                                    data-allow-remember-me="false"
+                                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"></script> 
+                                *@
+                            <script>
+                                document.getElementsByClassName("stripe-button-el")[0].style.display = "none";
+                            </script>
                             <button type="submit" value="Place Order" class="btn btn-success form-control">Siparişi ver</button>
                         </div>
                     </div>

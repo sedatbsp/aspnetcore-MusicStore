@@ -16,6 +16,7 @@ using MainMusicStore.DataAccess.IMainRepository;
 using MainMusicStore.DataAccess.MainRepository;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using MainMusicStore.Utility;
+using Stripe;
 
 namespace MainMusicStore
 {
@@ -41,6 +42,8 @@ namespace MainMusicStore
             //services.AddTransient<IEmailSender, EmailSender>();
             services.AddSingleton<IEmailSender, EmailSender>();
             services.Configure<EmailOptions>(Configuration);
+            services.Configure<StripeSettings>(Configuration.GetSection("StripeKey"));
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
@@ -91,6 +94,8 @@ namespace MainMusicStore
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            StripeConfiguration.ApiKey = Configuration.GetSection("Stripe")["SecretKey"];
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

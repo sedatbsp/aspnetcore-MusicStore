@@ -1,0 +1,20 @@
+﻿@model int
+@{
+    ViewData["Title"] = "Sipariş onayı";
+}
+<br />
+
+<div class="container row">
+    <div class="col-12 text-center">
+        <h2 class="text-primary text-center">Sipariş Başarıyla Alındı</h2><br />
+        <img src="~/images/confirmation-img.png" width="10%" />
+    </div>
+    <div class="col-12 text-center h5 " style="color:#0e854b">
+        <br />
+        Siparişiniz için teşekkür ederiz! <br /><br />
+        Siparişinizi aldık ve kısa süre içinde bir takip e-postası göndereceğiz!
+        <br /><hr />
+        <b class="h5">Sipariş numaranız<br /></b><b class="h1"> @Model </b>
+    </div>
+</div>
+
