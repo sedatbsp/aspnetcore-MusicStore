@@ -38,11 +38,17 @@ namespace MainMusicStore.Models.DbModels
 
         public string TransactionId { get; set; }
 
+        [Required(ErrorMessage = "Telefon numarası alanı zorunludur.")]
         public string PhoneNumber { get; set; }
+        [Required(ErrorMessage = "Adres bilgilerinizin girilmesi zorunludur.")]
         public string StreetAddress { get; set; }
+        [Required(ErrorMessage = "Şehir bilginizi girmeniz zorunludur.")]
         public string City { get; set; }
+        [Required(ErrorMessage = "Ülke bilgisi alanı zorunludur.")]
         public string State { get; set; }
+        [Required(ErrorMessage = "Posta kodu alanı zorunludur.")]
         public string PostCode { get; set; }
+        [Required(ErrorMessage = "Ad alanı zorunludur.")]
         public string Name { get; set; }
 
 

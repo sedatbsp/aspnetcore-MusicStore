@@ -12,13 +12,13 @@
     <div class="backgroundWhiteBorder">
         <div class="container">
             <div class="card">
-                <div class="card-header bg-dark text-light ml-0 row container">
-                    <div class="col-6">
-                        <i class="fa fa-shopping-cart"></i> &nbsp;
+                <div class="card-header bg-warning text-dark ml-0 row container">
+                    <div class="col-6 h6 align-self-center font-weight-bold">
+                        <i class="fa fa-shopping-cart"></i>&nbsp;&nbsp;
                         Sipariş özeti
                     </div>
                     <div class="col-6 text-right">
-                        <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="btn btn-outline-info btn-sm">Sepete geri dön</a>
+                        <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="btn btn-dark">Sepete geri dön</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -27,15 +27,16 @@
                             <div class="col-12 col-lg-6 pb-4">
                                 <div class="row">
                                     <h4 class="d-flex justify-content-between align-items-center mb-3">
-                                        <span class="text-info">Alıcı bilgileri:</span>
+                                        <span class="text-primary">Alıcı bilgileri:</span>
                                     </h4>
                                 </div>
-                                <div class="row my-1">
+                                <div class="row my-1 ">
                                     <div class="col-3">
-                                        <label>İsim</label>
+                                        <label>Adı Soyadı</label>
                                     </div>
                                     <div class="col-9">
                                         <input asp-for="OrderHeader.Name" type="text" class="form-control" />
+                                        <span asp-validation-for="OrderHeader.Name" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="row my-1">
@@ -44,6 +45,7 @@
                                     </div>
                                     <div class="col-9">
                                         <input asp-for="OrderHeader.PhoneNumber" type="text" class="form-control" />
+                                        <span asp-validation-for="OrderHeader.PhoneNumber" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="row my-1">
@@ -52,6 +54,7 @@
                                     </div>
                                     <div class="col-9">
                                         <input asp-for="OrderHeader.StreetAddress" type="text" class="form-control" />
+                                        <span asp-validation-for="OrderHeader.StreetAddress" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="row my-1">
@@ -60,6 +63,7 @@
                                     </div>
                                     <div class="col-9">
                                         <input asp-for="OrderHeader.City" type="text" class="form-control" />
+                                        <span asp-validation-for="OrderHeader.City" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="row my-1">
@@ -68,6 +72,7 @@
                                     </div>
                                     <div class="col-9">
                                         <input asp-for="OrderHeader.State" type="text" class="form-control" />
+                                        <span asp-validation-for="OrderHeader.State" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="row my-1">
@@ -76,12 +81,13 @@
                                     </div>
                                     <div class="col-9">
                                         <input asp-for="OrderHeader.PostCode" type="text" class="form-control" />
+                                        <span asp-validation-for="OrderHeader.PostCode" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-5 offset-lg-1">
                                 <h4 class="d-flex justify-content-between align-items-center mb-3">
-                                    <span class="text-info">Sipariş özeti:</span>
+                                    <span class="text-primary">Sipariş özeti:</span>
                                 </h4>
                                 <ul class="list-group mb-3">
                                     @{ var total = 0.0;}
@@ -97,7 +103,7 @@
                                     }
 
                                     <li class="list-group-item d-flex justify-content-between bg-light">
-                                        <b class="text-info ">TOPLAM</b>
+                                        <b class="text-primary ">TOPLAM</b>
                                         <strong class="text-primary font-weight-bold">@Model.OrderHeader.OrderTotal.ToString("0.00") TL</strong>
                                     </li>
                                 </ul>
@@ -111,21 +117,34 @@
                             <p style="color:maroon; font-size:14px;">Tahmini Teslim Tarihi: @DateTime.Now.AddDays(7).ToShortDateString(). - @DateTime.Now.AddDays(14).ToShortDateString()</p>
                         </div>
                         <div class="col-12 col-md-4">
-                            @* @{ var orderTotalForStripe = Model.OrderHeader.OrderTotal * 100; }
-                            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" 
-                                    data-key="@Stripe.Value.PublishableKey"
-                                    data-amount="@orderTotalForStripe" 
-                                    data-name="Müzik Mağazası" 
-                                    data-label="Siparişi ver" 
-                                    data-description="Kart bilgilerinizi giriniz."
-                                    data-locale="auto"
-                                    data-allow-remember-me="false"
-                                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"></script> 
-                                *@
-                            <script>
-                                document.getElementsByClassName("stripe-button-el")[0].style.display = "none";
-                            </script>
-                            <button type="submit" value="Place Order" class="btn btn-success form-control">Siparişi ver</button>
+                            @{ var orderTotalForStripe = Model.OrderHeader.OrderTotal * 100; }
+
+                            @if (Model.OrderHeader.ApplicationUser.Company == null || !Model.OrderHeader.ApplicationUser.Company.IsAuthorizedCompany)
+                            {
+                                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                        data-key="pk_test_OcOsQ6MQBXrdfltHjB300Pnv000hTeftEm"
+                                        data-amount="@orderTotalForStripe"
+                                        data-name="Müzik Mağazası"
+                                        data-label="Place Order"
+                                        data-description="Kart bilgilerinizi giriniz."
+                                        data-locale="auto"
+                                        data-allow-remember-me="false"
+                                        data-image="https://stripe.com/img/documentation/checkout/marketplace.png">
+
+                                </script>
+
+                                <script>
+                                    document.getElementsByClassName("stripe-button-el")[0].style.display = "none";
+                                </script>
+                                <button type="submit" value="Place Order" class="btn btn-success form-control">Siparişi ver</button>
+                            }
+                            else
+                            {
+                                <button type="submit" value="Place Order" class="btn btn-primary form-control">Siparişi ver</button>
+                            }
+
+
+
                         </div>
                     </div>
                 </div>
@@ -134,3 +153,6 @@
     </div>
 </form>
 
+@section Scripts{ 
+    <partial name="_ValidationScriptsPartial" />
+}

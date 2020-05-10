@@ -42,7 +42,7 @@ namespace MainMusicStore
             //services.AddTransient<IEmailSender, EmailSender>();
             services.AddSingleton<IEmailSender, EmailSender>();
             services.Configure<EmailOptions>(Configuration);
-            services.Configure<StripeSettings>(Configuration.GetSection("StripeKey"));
+            services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
@@ -95,11 +95,11 @@ namespace MainMusicStore
                 app.UseHsts();
             }
 
-            StripeConfiguration.ApiKey = Configuration.GetSection("Stripe")["SecretKey"];
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
+            StripeConfiguration.ApiKey = Configuration.GetSection("Stripe")["SecretKey"];
             app.UseSession();
 
             app.UseAuthentication();
